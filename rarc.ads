@@ -1,0 +1,98 @@
+-- with Interfaces;
+-- with Ada.Streams.Stream_IO;
+-- with Ada.Directories;
+-- with Ada.Strings.Unbounded;
+-- with Ada.Containers.Vectors;
+-- with Ada.Containers.Hashed_Maps;
+-- with Ada.Containers.Ordered_Maps;
+-- with Ada.Strings.Maps;
+-- with Ada.Strings.Fixed;
+-- with Ada.Exceptions;
+--
+-- use Interfaces;
+-- use Ada.Strings.Unbounded;
+-- use Ada;
+--
+-- package RARC is
+--    type Byte is mod 2**8 with Size => 8;
+--    type U16 is mod 2**16 with Size => 16;
+--    type U32 is mod 2**32 with Size => 32;
+--
+--    type Entry_Kind is (File_Kind, Folder_Kind);
+--    type Archive_Entry (Kind : Entry_Kind) is private;
+--
+--    procedure Unarchive (RARC_File_Name : String; Target_Directory : String);
+--    procedure Archive (Source_Directory : String; RARC_File_Name : String; Root_Name : String := "");
+--
+-- private
+--    package Entry_Vectors is new Ada.Containers.Vectors (Index_Type => Natural, Element_Type => Archive_Entry);
+--    package String_To_Offset_Maps is new Ada.Containers.Hashed_Maps
+--      (Key_Type => Unbounded_String, Element_Type => U32, Hash => Ada.Strings.Unbounded.Hash, Equivalent_Keys => "=");
+--
+--    package Offset_To_String_Maps is new Ada.Containers.Ordered_Maps (Key_Type => U32, Element_Type => Unbounded_String);
+--
+--    type Archive_Entry (Kind : Entry_Kind) is record
+--       Name : Unbounded_String;
+--       Hash : U16;
+--       Identifier : String (1 .. 4) := "    ";
+--       case Kind is
+-- 	 when Folder_Kind =>
+-- 	    Children : Entry_Vectors.Vector;
+-- 	    Node_Index : Natural := 0;
+-- 	 when File_Kind =>
+-- 	    File_Path : Unbounded_String;
+-- 	    Length : U32 := 0;
+--       end case;
+--    end record;
+--
+--    type Header_Type is record
+--       Magic : String (1 .. 4) := "RARC";
+--       File_Size : U32 := 0;
+--       Header_Size : U32 := 16#20#;
+--       Data_Offset : U32 := 0;
+--       Data_Length : U32 := 0;
+--       Data_Length2 : U32 := 0;
+--       Unknown1 : U32 := 0;
+--       Unknown2 : U32 := 0;
+--    end record;
+--
+--    type Info_Block_Type is record
+--       Num_Nodes : U32 := 0;
+--       First_Node_Offset : U32 := 0;
+--       Total_Dirs : U32 := 0;
+--       First_Dir_Offset : U32 := 0;
+--       String_Table_Length : U32 := 0;
+--       String_Table_Offset : U32 := 0;
+--       Num_Files : U16 := 0;
+--       Unknown_U16 : U16 := 0;
+--       Unknown_U32 : U32 := 0;
+--    end record;
+--
+--    type Node_Type is record
+--       Identifier : String (1 .. 4) := "    ";
+--       String_Offset : U32 := 0;
+--       Hash : U16 := 0;
+--       Num_Directories : U16 := 0;
+--       First_Directory_Index : U32 := 0;
+--    end record;
+--
+--    type Directory_Type is record
+--       Index : U16 := 0;
+--       Hash : U16 := 0;
+--       Type_Flag : U16 := 0;
+--       String_Offset : U16 := 0;
+--       Data_Offset : U32 := 0;
+--       Data_Length : U32 := 0;
+--       Unknown : U32 := 0;
+--    end record;
+--
+--    Folder_Type_Flag : constant U16 := 16#0200#;
+--    File_Type_Flag : constant U16 := 16#1100#;
+--    Folder_Index_Flag : constant U16 := 16#FFFF#;
+-- end RARC;
+--
+
+package RARC is
+
+end RARC;
+
