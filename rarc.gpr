@@ -3,14 +3,11 @@ project Rarc is
 
     Build : Build_Type := External ("Build", "Debug");
 
-    for Source_Dirs use (".", "tests");
+    for Source_Dirs use (".");
     for Object_Dir use "obj";
-    -- for Library_Dir use "lib";
-    for Exec_Dir    use "bin";
-    -- for Library_Name use "rarc";
-    -- for Library_Kind use "static";
-
-    for Main         use ("test_rarc_endian.adb");
+    for Library_Dir use "lib";
+    for Library_Name use "rarc";
+    for Library_Kind use "static";
 
     package Compiler is
         case Build is
@@ -46,16 +43,4 @@ project Rarc is
                 null;
         end case;
     end Binder;
-
-    package Linker is
-        case Build is
-            when "Production" =>
-                for Default_Switches ("Ada") use ("-s"); -- strip
-            when "Debug" =>
-                for Default_Switches ("Ada") use ();
-            when others =>
-                null;
-        end case;
-    end Linker;
-
 end Rarc;
